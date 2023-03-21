@@ -1,6 +1,7 @@
 'use strict';
 
 const toCCB = require("./lib/toCCB");
+const save = require("./lib/save");
 
 const LANG_DATA = {
     "zh": ["新建", '转为ccb'],
@@ -31,6 +32,10 @@ module.exports = {
     messages: {
         'openSetting' () {
             Editor.log('Hello World!', Editor.T('a'));
+            Editor.Panel.open('to-ccb');
+        },
+        'setOutput' (event, path) {
+            save.setOutput(path);
         }
     },
     

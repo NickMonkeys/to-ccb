@@ -11,5 +11,12 @@
     },
     "dependencies": {
         "plist": "^3.0.6"
-    }
+    },
+    "panel": {
+        "main": "panel/index.js",
+        "type": "dockable",
+        "title": "to-ccb",
+        "width": 400,
+        "height": 300
+      }
 }
