@@ -1,0 +1,15 @@
+{
+    "name": "to-ccb",
+    "version": "0.0.1",
+    "description": "将prefab转换为ccb文件",
+    "author": "Cocos Creator",
+    "main": "main.js",
+    "main-menu": {
+        "Packages/toCCB": {
+            "message": "to-ccb:openSetting"
+        }
+    },
+    "dependencies": {
+        "plist": "^3.0.6"
+    }
+}
