@@ -25,5 +25,14 @@ Editor.Panel.extend({
         this.$file.addEventListener('change', () => {
             this.data.outupPath = this.$file.value;
         })
+
+        Editor.Ipc.sendToMain('to-ccb:page_loaded');
     },
+
+    messages: {
+        "to-ccb:panel_init" (event, args) {
+            Editor.log('panel init:', args);
+            this.$file.value = args.path;
+        }
+    }
 });

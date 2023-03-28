@@ -36,6 +36,13 @@ module.exports = {
         },
         'setOutput' (event, path) {
             save.setOutput(path);
+        },
+        'page_loaded' () {
+            const path = save.getOutput();
+            const param = {
+                path: path,
+            };
+            Editor.Ipc.sendToPanel('to-ccb', 'to-ccb:panel_init', param);
         }
     },
     
