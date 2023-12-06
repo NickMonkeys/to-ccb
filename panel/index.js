@@ -3,27 +3,47 @@ Editor.Panel.extend({
 
     template: `
     <div>
-        <div>导出路径：
-            <ui-input id="file" type='file' placeholder="输入ccb导出路径"></ui-input>
-            <ui-button id="btnOpen">保存</ui-button>
+        <div>ccb导出路径：
+            <ui-input id="ccbPath" type='file' placeholder="输入ccb导出路径"></ui-input>
+            <ui-button id="saveCcbPath">保存</ui-button>
+        </div>
+        <div>img导出路径：
+            <ui-input id="imgPath" type='file' placeholder="输入img导出路径"></ui-input>
+            <ui-button id="saveImgPath">保存</ui-button>
         </div>
     </div>
     `,
 
     $: {
-        btnOpen: '#btnOpen',
-        file: '#file',
+        ccbPath: '#ccbPath',
+        imgPath: '#imgPath',
+        saveCcbPath: '#saveCcbPath',
+        saveImgPath: '#saveImgPath',
     },
 
     data: {},
 
     ready() {
-        this.$btnOpen.addEventListener('confirm', () => {
-            const outupPath = this.data.outupPath;
-            Editor.Ipc.sendToMain('to-ccb:setOutput', outupPath);
+        // 获取输入框数据
+        this.$ccbPath.addEventListener('change', () => {
+            this.data.ccbPath = this.$ccbPath.value;
+            Editor.log('panel change ccbPath:', this.data.ccbPath);
         })
-        this.$file.addEventListener('change', () => {
-            this.data.outupPath = this.$file.value;
+        this.$imgPath.addEventListener('change', () => {
+            this.data.imgPath = this.$imgPath.value;
+            Editor.log('panel change imgPath:', this.data.imgPath);
+        })
+
+        // 保存按钮回调，去保存数据
+        this.$saveCcbPath.addEventListener('confirm', () => {
+            const ccbPath = this.data.ccbPath;
+            Editor.log('panel saveCcbPath:', ccbPath);
+            Editor.Ipc.sendToMain('to-ccb:setCcbPath', ccbPath);
+        })
+        this.$saveImgPath.addEventListener('confirm', () => {
+            const imgPath = this.data.imgPath;
+            Editor.log('panel saveImgPath:', imgPath);
+            Editor.Ipc.sendToMain('to-ccb:setImgPath', imgPath);
         })
 
         Editor.Ipc.sendToMain('to-ccb:page_loaded');
@@ -32,7 +52,8 @@ Editor.Panel.extend({
     messages: {
         "to-ccb:panel_init" (event, args) {
             Editor.log('panel init:', args);
-            this.$file.value = args.path;
+            this.$ccbPath.value = args.ccbPath;
+            this.$imgPath.value = args.imgPath;
         }
     }
 });

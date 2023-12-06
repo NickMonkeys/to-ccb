@@ -34,13 +34,16 @@ module.exports = {
             Editor.log('Hello World!', Editor.T('a'));
             Editor.Panel.open('to-ccb');
         },
-        'setOutput' (event, path) {
-            save.setOutput(path);
+        'setCcbPath' (event, path) {
+            save.setCcbPath(path);
+        },
+        'setImgPath' (event, path) {
+            save.setImgPath(path);
         },
         'page_loaded' () {
-            const path = save.getOutput();
             const param = {
-                path: path,
+                ccbPath: save.getCcbPath(),
+                imgPath: save.getImgPath(),
             };
             Editor.Ipc.sendToPanel('to-ccb', 'to-ccb:panel_init', param);
         }
